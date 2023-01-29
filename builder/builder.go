@@ -28,6 +28,6 @@ func (a *AST) Parse() {
 	if err != nil {
 		log.Fatal("Parse Error: ", err)
 	}
-	ast.FilterFile(fs, a.Filter)
+	//st.FilterFile(fs, a.Filter)
 	ast.Print(fset, fs)
 }
