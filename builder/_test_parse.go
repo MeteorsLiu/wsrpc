@@ -1,4 +1,4 @@
-package xxx
+package builder
 
 type TestExport struct {
 	A string
