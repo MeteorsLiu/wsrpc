@@ -24,7 +24,7 @@ func (a *AST) Filter(s string) bool {
 }
 func (a *AST) Parse() {
 	fset := token.NewFileSet()
-	fs, err := parser.ParseFile(fset, a.filename, "", 0)
+	fs, err := parser.ParseFile(fset, a.filename, nil, 0)
 	if err != nil {
 		log.Fatal("Parse Error: ", err)
 	}
