@@ -1,14 +1,17 @@
 package builder
 
-type TestExport struct {
+type ExportStruct struct {
 	A string
 }
 
-func (t *TestExport) FuncA() {
+func (e *ExportStruct) FuncA() {
+
 }
 
-func (t *TestExport) FuncB() {
+func (e *ExportStruct) FuncB() {
+
 }
 
-func (t *TestExport) FuncC() {
+func (e *ExportStruct) FuncC() {
+
 }
