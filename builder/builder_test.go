@@ -5,5 +5,5 @@ import (
 )
 
 func TestBuider(t *testing.T) {
-	NewAST("_test_parse.go", "TestExport").Parse()
+	NewAST("test_parse.go", "TestExport").Parse()
 }
