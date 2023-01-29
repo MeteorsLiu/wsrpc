@@ -1,4 +1,4 @@
-package main
+package builder
 
 import (
 	"flag"
@@ -17,5 +17,6 @@ func main() {
 	if parseFile == "" || exportStruct == "" {
 		log.Fatal("No specific file")
 	}
+
 	NewAST(parseFile, exportStruct).Parse()
 }
