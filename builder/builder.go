@@ -26,7 +26,7 @@ func (a *AST) Parse() {
 	fset := token.NewFileSet()
 	fs, err := parser.ParseFile(fset, a.filename, "", 0)
 	if err != nil {
-		log.Fatal("Syntax Error: ", err)
+		log.Fatal("Parse Error: ", err)
 	}
 	ast.FilterFile(fs, a.Filter)
 	ast.Print(fset, fs)
