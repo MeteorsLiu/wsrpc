@@ -18,11 +18,11 @@ type FuncC_Args struct {
 	c string
 }
 
-func (e *ExportStruct) FuncA(a *FuncA_Args) {
+func (e *ExportStruct) FuncA(a *FuncA_Args, b string, c int) {
 
 }
 
-func (e *ExportStruct) FuncB(b *FuncB_Args) {
+func (e *ExportStruct) FuncB(b *FuncB_Args, c string, d int) {
 
 }
 
