@@ -1,7 +1,7 @@
 package builder
 
 import (
-	"go/ast"
+	"fmt"
 	"go/parser"
 	"go/token"
 	"log"
@@ -28,6 +28,7 @@ func (a *AST) Parse() {
 	if err != nil {
 		log.Fatal("Parse Error: ", err)
 	}
-	//st.FilterFile(fs, a.Filter)
-	ast.Print(fset, fs)
+	for _, v := range fs.Decls {
+		fmt.Println(v)
+	}
 }
