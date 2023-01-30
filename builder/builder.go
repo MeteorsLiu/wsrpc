@@ -6,7 +6,6 @@ import (
 	"go/parser"
 	"go/token"
 	"log"
-	"strings"
 )
 
 type AST struct {
@@ -20,9 +19,19 @@ func NewAST(f, export string) *AST {
 		exportStruct: export,
 	}
 }
-func (a *AST) Filter(s string) bool {
-	return strings.Contains(s, a.exportStruct)
+func (a *AST) isExportMember(da *ast.Field) bool {
+	if da != nil {
+		if das, ok := da.Type.(*ast.StarExpr); ok {
+			if dasx, ok := das.X.(*ast.Ident); ok {
+				if dasx.Name == a.exportStruct {
+					return true
+				}
+			}
+		}
+	}
+	return false
 }
+
 func (a *AST) Parse() {
 	fset := token.NewFileSet()
 	fs, err := parser.ParseFile(fset, a.filename, nil, 0)
@@ -33,7 +42,9 @@ func (a *AST) Parse() {
 		switch d := decl.(type) {
 		case *ast.FuncDecl:
 			for _, da := range d.Recv.List {
-				fmt.Println(da.Type.(*ast.StarExpr).X.(*ast.Ident).Name)
+				if a.isExportMember(da) {
+					fmt.Println("is Export Method: ", d.Name, d.Type)
+				}
 			}
 		}
 	}
