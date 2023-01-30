@@ -33,7 +33,7 @@ func (a *AST) Parse() {
 		switch d := decl.(type) {
 		case *ast.FuncDecl:
 			for _, da := range d.Recv.List {
-				fmt.Println(da.Names)
+				fmt.Println(da.Type)
 			}
 		}
 	}
