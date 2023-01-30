@@ -2,6 +2,7 @@ package builder
 
 import (
 	"fmt"
+	"go/ast"
 	"go/parser"
 	"go/token"
 	"log"
@@ -29,6 +30,9 @@ func (a *AST) Parse() {
 		log.Fatal("Parse Error: ", err)
 	}
 	for _, v := range fs.Decls {
-		fmt.Println(v)
+		switch d := v.(type) {
+		case *ast.FuncDecl:
+			fmt.Println(d)
+		}
 	}
 }
