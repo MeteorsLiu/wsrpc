@@ -22,21 +22,21 @@ func NewAST(f, export string) *AST {
 
 func (a *AST) isExportMember(da *ast.Field) bool {
 	if da != nil {
+		// receiver is a pointer
 		if das, ok := da.Type.(*ast.StarExpr); ok {
 			if dasx, ok := das.X.(*ast.Ident); ok {
 				if dasx.Name == a.exportStruct {
 					return true
 				}
 			}
+			// not pointer
 		} else if dai, ok := da.Type.(*ast.Ident); ok {
-			fmt.Println(dai.Name)
+			if dai.Name == a.exportStruct {
+				return true
+			}
 		}
 	}
 	return false
-}
-
-func parseFuncParams(fd *ast.FuncType) {
-
 }
 
 func (a *AST) Parse() {
