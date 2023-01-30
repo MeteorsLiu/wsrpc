@@ -6,6 +6,7 @@ import (
 	"go/parser"
 	"go/token"
 	"log"
+	"reflect"
 	"strings"
 )
 
@@ -33,7 +34,7 @@ func (a *AST) Parse() {
 		switch d := decl.(type) {
 		case *ast.FuncDecl:
 			for _, da := range d.Recv.List {
-				fmt.Println(da.Type)
+				fmt.Println(reflect.TypeOf(da.Type).Elem())
 			}
 		}
 	}
