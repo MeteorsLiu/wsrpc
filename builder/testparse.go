@@ -25,3 +25,7 @@ func (e *ExportStruct) FuncB(b *FuncB_Args) {
 func (e *ExportStruct) FuncC(c *FuncC_Args) {
 
 }
+
+func (e ExportStruct) FuncNotPtr(c *FuncC_Args) {
+
+}

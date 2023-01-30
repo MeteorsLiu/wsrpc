@@ -19,6 +19,7 @@ func NewAST(f, export string) *AST {
 		exportStruct: export,
 	}
 }
+
 func (a *AST) isExportMember(da *ast.Field) bool {
 	if da != nil {
 		if das, ok := da.Type.(*ast.StarExpr); ok {
@@ -27,9 +28,15 @@ func (a *AST) isExportMember(da *ast.Field) bool {
 					return true
 				}
 			}
+		} else if dai, ok := da.Type.(*ast.Ident); ok {
+			fmt.Println(dai.Name)
 		}
 	}
 	return false
+}
+
+func parseFuncParams(fd *ast.FuncType) {
+
 }
 
 func (a *AST) Parse() {
