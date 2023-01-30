@@ -29,10 +29,12 @@ func (a *AST) Parse() {
 	if err != nil {
 		log.Fatal("Parse Error: ", err)
 	}
-	for _, v := range fs.Decls {
-		switch d := v.(type) {
+	for _, decl := range fs.Decls {
+		switch d := decl.(type) {
 		case *ast.FuncDecl:
-			fmt.Println(d)
+			for _, da := range d.Recv.List {
+				fmt.Println(da.Names)
+			}
 		}
 	}
 }
