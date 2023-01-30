@@ -3,6 +3,10 @@ package builder
 type ExportStruct struct {
 	A string
 }
+
+type NotExportStruct struct {
+	B string
+}
 type FuncA_Args struct {
 	a string
 }
@@ -27,5 +31,13 @@ func (e *ExportStruct) FuncC(c *FuncC_Args) {
 }
 
 func (e ExportStruct) FuncNotPtr(c *FuncC_Args) {
+
+}
+
+func (n NotExportStruct) FuncNotPtr(c *FuncC_Args) {
+
+}
+
+func (n *NotExportStruct) FuncPtr(c *FuncC_Args) {
 
 }
