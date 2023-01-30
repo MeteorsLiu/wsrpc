@@ -29,7 +29,6 @@ func (a *AST) isExportMember(da *ast.Field) bool {
 					return true
 				}
 			}
-			// not pointer
 		} else if dai, ok := da.Type.(*ast.Ident); ok {
 			if dai.Name == a.exportStruct {
 				return true
@@ -37,6 +36,21 @@ func (a *AST) isExportMember(da *ast.Field) bool {
 		}
 	}
 	return false
+}
+
+func parseFuncParamsType(p []*ast.Field) []string {
+	tys := make([]string, len(p))
+
+	for _, ty := range p {
+		switch t := ty.Type.(type) {
+		case *ast.StarExpr:
+			tys = append(tys, "*"+t.X.(*ast.Ident).Name)
+		case *ast.Ident:
+			tys = append(tys, t.Name)
+		}
+	}
+
+	return tys
 }
 
 func (a *AST) Parse() {
@@ -50,7 +64,7 @@ func (a *AST) Parse() {
 		case *ast.FuncDecl:
 			for _, da := range d.Recv.List {
 				if a.isExportMember(da) {
-					fmt.Println("is Export Method: ", d.Name, d.Type)
+					fmt.Println("is Export Method: ", d.Name, parseFuncParamsType(d.Type.Params.List))
 				}
 			}
 		}
