@@ -38,21 +38,6 @@ func (a *AST) isExportMember(da *ast.Field) bool {
 	return false
 }
 
-func parseFuncParamsType(p []*ast.Field) []string {
-	tys := make([]string, len(p))
-
-	for _, ty := range p {
-		switch t := ty.Type.(type) {
-		case *ast.StarExpr:
-			tys = append(tys, "*"+t.X.(*ast.Ident).Name)
-		case *ast.Ident:
-			tys = append(tys, t.Name)
-		}
-	}
-
-	return tys
-}
-
 func (a *AST) Parse() {
 	fset := token.NewFileSet()
 	fs, err := parser.ParseFile(fset, a.filename, nil, 0)
@@ -64,6 +49,7 @@ func (a *AST) Parse() {
 		case *ast.FuncDecl:
 			for _, da := range d.Recv.List {
 				if a.isExportMember(da) {
+					checkExport(d.Name)
 					fmt.Println("is Export Method: ", d.Name, parseFuncParamsType(d.Type.Params.List))
 				}
 			}
